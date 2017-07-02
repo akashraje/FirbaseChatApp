@@ -23,7 +23,9 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -48,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(),
                     Constants.SIGN_IN_REQUEST_CODE);
         } else {
-            //TODO: Show Chat messages
             showChatMessages();
         }
 
@@ -90,12 +91,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == Constants.SIGN_IN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this,
-                        getString(R.string.welcome) + FirebaseAuth.getInstance()
+                        getString(R.string.welcome) +" "+ FirebaseAuth.getInstance()
                                 .getCurrentUser()
                                 .getDisplayName(),
                         Toast.LENGTH_LONG)
                         .show();
-                //TODO: Show Chat Messages.
                 //We can show a list of conversations as well
                 showChatMessages();
 
@@ -110,8 +110,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showChatMessages() {
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        Query query = dbRef.orderByChild("sentTime");
+
         adapter = new FirebaseListAdapter<TextMessage>(this, TextMessage.class,
-                R.layout.text_message, FirebaseDatabase.getInstance().getReference()) {
+                R.layout.text_message, query) {
             @Override
             protected void populateView(View v, TextMessage model, int position) {
 

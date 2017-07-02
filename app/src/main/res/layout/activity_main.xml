@@ -45,5 +45,7 @@
         android:layout_above="@id/fabSend"
         android:dividerHeight="16dp"
         android:divider="@android:color/transparent"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
         android:layout_marginBottom="16dp"/>
 </RelativeLayout>

@@ -2,6 +2,6 @@
     <string name="app_name">ChatApp</string>
     <string name="welcome">Welcome</string>
     <string name="sign_in_error">Unable to sign you in.</string>
-    <string name="sign_out_success">You have beedn signed out.</string>
+    <string name="sign_out_success">You have been signed out.</string>
     <string name="txt_empty">Enter Text</string>
 </resources>
